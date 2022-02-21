@@ -254,6 +254,7 @@ button {
     border: 1px solid black;
     border-bottom: 3px solid black;
     border-radius: 5px;
+    color: black;
     background-color: whitesmoke;
     transition: transform 0.7 linear;
 }
