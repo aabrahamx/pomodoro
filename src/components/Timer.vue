@@ -1,8 +1,25 @@
 
 <template>
+    <div id="setting-wrapper">
+        <div>
+            <label for="focus"> Work </label>
+            <input v-model="timer.focusTime" type="number" min="5" max="120" step="5" id="focus">
+        </div>
+        <div>
+            <label for="short-break"> Short Break </label>
+            <input v-model="timer.shortBreak" type="number" min="5" max="30" step="5" id="short-break" >
+        </div>
+        <div>
+            <label for="long-break"> Long Break </label>
+            <input v-model="timer.longBreak" type="number" min="15" max="120" step="15" id="long-break">
+        </div>
+    </div>
     <div id="timer-wrapper">
         <div>
             <div id="timer">
+                <div>
+                    <span>{{timer.currentRunningSession}}</span>
+                </div>
                 <div id="time-holder">
                     <span> {{ timer.minute }} : {{ timer.second }} </span>
                 </div>
@@ -10,7 +27,7 @@
                     <div id="start">
                         <button @click="timeCounter"> Start </button>
                     </div>
-                    <div id="pause">
+                    <div id="pause" style="display: none;">
                         <button @click="pauseTimer"> Pause </button>
                     </div>
                 </div>
@@ -31,13 +48,14 @@ const timer = reactive({
     minute: '00',
     second: '00',
 
+    currentRunningSession: '',
     currentSession: 0,
     numberOfSessions: 4,
     sessionOver: false,
 
-    focusTime: 1,
-    shortBreak: .5,
-    longBreak: 2,
+    focusTime: 25,
+    shortBreak: 5,
+    longBreak: 45,
 
     focusTimeTurn: true,
     shortBreakTurn: false,
@@ -94,17 +112,20 @@ function whichSessionToRun() {
         console.log('focus')
         timer.currentSession++
         setTurn(timer.focusTime);
+        timer.currentRunningSession = 'Work';
         return timer.focusTime;
 
     } else if (timer.shortBreakTurn === true) {
 
         console.log('short')
         setTurn(timer.shortBreak);
+        timer.currentRunningSession = 'Short Break'
         return timer.shortBreak;
 
     } else if (timer.longBreakTurn === true) {
         console.log('long')
         timer.sessionOver = true;
+        timer.currentRunningSession = 'Long Break'
         return timer.longBreak;
     }
 }
@@ -122,6 +143,7 @@ function timerExecutor() {
         timeCounter();
     } else if (timer.sessionOver) {
         reset();
+        timer.currentRunningSession = 'Done! Great Job! 🎉'
         const playIcon = document.getElementById('start');
         const pauseIcon = document.getElementById('pause');
         playIcon.style.display = 'block';
@@ -188,8 +210,9 @@ function pauseTimer() {
 
 <style>
 #timer-wrapper {
-    height: 275px;
-    width: 275px;
+    height: 300px;
+    width: 300px;
+    margin: 10px auto;
     background-color: tomato;
     border: 2px solid black;
     border-radius: 50%;
@@ -224,19 +247,43 @@ function pauseTimer() {
 #timer > div {
     margin: 5px;
 }
-
 button {
     padding: 5px;
     margin: 10px;
     width: 100px;
     border: 1px solid black;
     border-bottom: 3px solid black;
-    border-radius: 10px;
-    background-color: antiquewhite;
+    border-radius: 5px;
+    background-color: whitesmoke;
     transition: transform 0.7 linear;
 }
 button:active,
 button:hover {
     transform: scale(0.95);
+}
+
+
+
+/* setting styles */
+* {
+    outline: 0px solid red;
+}
+input {
+    padding-left: 25px;
+    height: 20px;
+    width: 50px;
+    margin: 5px;
+    border: 1px solid black;
+    background-color: whitesmoke;
+}
+#setting-wrapper {
+    display: flex;
+}
+#setting-wrapper > div {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>
