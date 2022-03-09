@@ -1,5 +1,9 @@
 
 <template>
+    <div id="session-wrapper">
+        <label for="sessionNumber">Sessions</label>
+        <input v-model="timer.numberOfSessions" type="number" id="sessionNumber" min="1" max="10" step="1">
+    </div>
     <div id="setting-wrapper">
         <div>
             <label for="focus"> Work </label>
@@ -37,6 +41,12 @@
             </div>
         </div>
     </div>
+    <div>
+        <button id="reset" @click="reset">Reset</button>
+    </div>
+    <audio id="audio" >
+        <source src="../assets/audio/positive-notification.mp3" type="audio/mp3" >
+    </audio>
 </template>
 
 
@@ -53,9 +63,9 @@ const timer = reactive({
     numberOfSessions: 4,
     sessionOver: false,
 
-    focusTime: 25,
-    shortBreak: 5,
-    longBreak: 45,
+    focusTime: .10,
+    shortBreak: .15,
+    longBreak: .30,
 
     focusTimeTurn: true,
     shortBreakTurn: false,
@@ -112,20 +122,20 @@ function whichSessionToRun() {
         console.log('focus')
         timer.currentSession++
         setTurn(timer.focusTime);
-        timer.currentRunningSession = 'Work';
+        timer.currentRunningSession = 'Work Session 🎯';
         return timer.focusTime;
 
     } else if (timer.shortBreakTurn === true) {
 
         console.log('short')
         setTurn(timer.shortBreak);
-        timer.currentRunningSession = 'Short Break'
+        timer.currentRunningSession = 'Short Break 🧘'
         return timer.shortBreak;
 
     } else if (timer.longBreakTurn === true) {
         console.log('long')
         timer.sessionOver = true;
-        timer.currentRunningSession = 'Long Break'
+        timer.currentRunningSession = 'Long Break 🏖️'
         return timer.longBreak;
     }
 }
@@ -187,6 +197,8 @@ function timeCounter() {
 
             stopTimer(timerId)
             timerExecutor()
+            const notify = document.getElementById('audio');
+            notify.play();
 
         } else {
             time--
@@ -208,13 +220,14 @@ function pauseTimer() {
 </script>
 
 
-<style>
+<style scoped>
+
 #timer-wrapper {
     height: 300px;
     width: 300px;
     margin: 10px auto;
-    background-color: tomato;
-    border: 2px solid black;
+    background-color: #adbbb2;
+    border: 1px solid black;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -224,7 +237,7 @@ function pauseTimer() {
     width: 85%;
     height: 85%;
     border-radius: 50%;
-    border: 3px solid black;
+    border: 2px solid black;
     background-color: antiquewhite;
     display: flex;
     align-items: center;
@@ -234,7 +247,7 @@ function pauseTimer() {
     height: 95%;
     width: 95%;
     border-radius: 50%;
-    background-color: tomato;
+    background-color: #adbbb2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -248,14 +261,14 @@ function pauseTimer() {
     margin: 5px;
 }
 button {
-    padding: 5px;
+    padding: 4px;
     margin: 10px;
-    width: 100px;
+    width: 70px;
+    border-radius: 3px;
     border: 1px solid black;
-    border-bottom: 3px solid black;
-    border-radius: 5px;
+    border-bottom: 2px solid black;
     color: black;
-    background-color: whitesmoke;
+    background-color: antiquewhite;
     transition: transform 0.7 linear;
 }
 button:active,
@@ -266,9 +279,6 @@ button:hover {
 
 
 /* setting styles */
-* {
-    outline: 0px solid red;
-}
 input {
     padding-left: 25px;
     height: 20px;
@@ -281,10 +291,21 @@ input {
     display: flex;
 }
 #setting-wrapper > div {
-    margin: 10px;
+    margin: 0 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+#session-wrapper label,
+#session-wrapper input {
+    display: block;
+    margin: 0.25rem auto;
+    text-align: center;
+    width: 270px;
+}
+#reset {
+    width: 270px;
+    height: 40px;
 }
 </style>
