@@ -42,7 +42,7 @@
         </div>
     </div>
     <div>
-        <button id="reset" @click="reset">Reset</button>
+        <button id="reset" @click="userReset"> Reset </button>
     </div>
     <audio id="audio" >
         <source src="../assets/audio/positive-notification.mp3" type="audio/mp3" >
@@ -63,9 +63,9 @@ const timer = reactive({
     numberOfSessions: 4,
     sessionOver: false,
 
-    focusTime: .10,
-    shortBreak: .15,
-    longBreak: .30,
+    focusTime: 25,
+    shortBreak: 5,
+    longBreak: 30,
 
     focusTimeTurn: true,
     shortBreakTurn: false,
@@ -75,6 +75,27 @@ const timer = reactive({
     pausedRemainingTime: null
 
 })
+
+function userReset() {
+    timer.isPaused = true;
+
+    timer.currentRunningSession = '';
+    timer.currentSession = 0;
+    timer.numberOfSessions = 4;
+    timer.sessionOver = false;
+
+    timer.focusTimeTurn = true;
+    timer.shortBreakTurn = false;
+    timer.longBreakTurn = false;
+
+    setTimeout(()=> {
+        timer.isPaused = false;
+        timer.pausedRemainingTime = null;
+        timer.minute = '00';
+        timer.second = '00';
+    }, 1100)
+    console.log('resest')
+}
 
 function changeMinuteToSecond(minute) {
     return minute * 60
