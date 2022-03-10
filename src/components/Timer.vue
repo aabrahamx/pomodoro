@@ -22,16 +22,16 @@
         <div>
             <div id="timer">
                 <div>
-                    <span>{{timer.currentRunningSession}}</span>
+                    <span id="session"></span>
                 </div>
                 <div id="time-holder">
-                    <span> {{ timer.minute }} : {{ timer.second }} </span>
+                    <span> {{ timer.time }} </span>
                 </div>
                 <div id="icon-wrapper">
-                    <div id="start">
+                    <div id="start-btn">
                         <button @click="timeCounter"> Start </button>
                     </div>
-                    <div id="pause" style="display: none;">
+                    <div id="pause-btn" style="display: none;">
                         <button @click="pauseTimer"> Pause </button>
                     </div>
                 </div>
@@ -52,84 +52,58 @@
 
 <script setup>
 
-import { reactive } from 'vue'
+import { reactive } from 'vue';
+import { displayElement, hideElement, playNotification, displaySession } from '../helpers/dom.js';
+import { changeMinuteToSecond, formattedTime } from '../helpers/time-formatters.js';
 
 const timer = reactive({
-    minute: '00',
-    second: '00',
-
-    currentRunningSession: '',
-    currentSession: 0,
-    numberOfSessions: 4,
-    sessionOver: false,
-
+    // -- client input
     focusTime: 25,
     shortBreak: 5,
     longBreak: 30,
+    numberOfSessions: 4,
+    // -----------------
+
+    time: '00 : 00',
+    currentSession: 0,
+    sessionOver: false,
 
     focusTimeTurn: true,
     shortBreakTurn: false,
     longBreakTurn: false,
-
     isPaused: false,
     pausedRemainingTime: null
-
 })
 
 function userReset() {
     timer.isPaused = true;
-
-    timer.currentRunningSession = '';
     timer.currentSession = 0;
     timer.numberOfSessions = 4;
     timer.sessionOver = false;
-
     timer.focusTimeTurn = true;
     timer.shortBreakTurn = false;
     timer.longBreakTurn = false;
-
     setTimeout(()=> {
         timer.isPaused = false;
         timer.pausedRemainingTime = null;
-        timer.minute = '00';
-        timer.second = '00';
+        timer.time = '00 : 00';
     }, 1100)
     console.log('resest')
 }
 
-function changeMinuteToSecond(minute) {
-    return minute * 60
-}
-
-function displayTime(timeInSeconds) {
-    const minute = Math.floor(timeInSeconds / 60);
-    const second = Math.floor(timeInSeconds % 60);
-    if (minute < 10) {
-        timer.minute = '0' + minute;
-    } else {
-        timer.minute = minute;
-    }
-    if (second < 10) {
-        timer.second = '0' + second;
-    } else {
-        timer.second = second;
-    }
-}
-
-function setTurn(data) {
-    //checks if number current session is in it's last turn
-    //current session increments on every work session
+function setTurn(runningTurn) {
+    // ⬇ -- takes current running turn and sets for the next one --
     const difference = timer.numberOfSessions - timer.currentSession;
     if (difference > 0) {
-        //sets values between work and short break
-        if (data === timer.focusTime) {
+        // ⬇ -- work session and short break -- 
+        if (runningTurn === timer.focusTime) {
             timer.focusTimeTurn = false;
             timer.shortBreakTurn = true;
-        } else if (data === timer.shortBreak) {
+        } else if (runningTurn === timer.shortBreak) {
             timer.shortBreakTurn = false;
             timer.focusTimeTurn = true;
         }
-        //sets long break for the final
+        // ⬇ -- long break -- 
     } else if (difference === 0) {
         timer.focusTimeTurn = false;
         timer.shortBreakTurn = false;
@@ -139,24 +113,20 @@ function setTurn(data) {
 
 function whichSessionToRun() {
     if (timer.focusTimeTurn === true) {
-
         console.log('focus')
         timer.currentSession++
         setTurn(timer.focusTime);
-        timer.currentRunningSession = 'Work Session 🎯';
+        displaySession('#session', 'Work Session 🎯')
         return timer.focusTime;
-
     } else if (timer.shortBreakTurn === true) {
-
         console.log('short')
         setTurn(timer.shortBreak);
-        timer.currentRunningSession = 'Short Break 🧘'
+        displaySession('#session', 'Short Break 🧘')
         return timer.shortBreak;
-
     } else if (timer.longBreakTurn === true) {
         console.log('long')
         timer.sessionOver = true;
-        timer.currentRunningSession = 'Long Break 🏖️'
+        displaySession('#session', 'Long Break 🏖️')
         return timer.longBreak;
     }
 }
@@ -174,59 +144,38 @@ function timerExecutor() {
         timeCounter();
     } else if (timer.sessionOver) {
         reset();
-        timer.currentRunningSession = 'Done! Great Job! 🎉'
-        const playIcon = document.getElementById('start');
-        const pauseIcon = document.getElementById('pause');
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
+        displaySession('#session', 'Done! Great Job! 🎉')
+        hideElement('#pause-btn');
+        displayElement('#start-btn');
     }
 }
 
 function timeCounter() {
-
-    const playIcon = document.getElementById('start');
-    const pauseIcon = document.getElementById('pause');
-    playIcon.style.display = 'none';
-    pauseIcon.style.display = 'block';
-
-    let time
-
-    //the first condition is to play from a paused state
+    let tickingTime;
+    displayElement('#pause-btn');
+    hideElement('#start-btn')
     if (timer.pausedRemainingTime > 0) {
-
-        time = timer.pausedRemainingTime;
+        // plays from a paused state
+        tickingTime = timer.pausedRemainingTime;
         timer.isPaused = false;
         timer.pausedRemainingTime = null;
-        //the second contition here is start from blank to continue to other sessions
     } else {
-        console.log('function')
-        time = changeMinuteToSecond(whichSessionToRun());
-    console.log(time + 'time')
+        tickingTime = changeMinuteToSecond(whichSessionToRun());
     }
     const timerId = setInterval(() => {
         if (timer.isPaused === true) {
-
-            timer.pausedRemainingTime = time;
-            console.log(`Paused time: ${timer.pausedRemainingTime}`)
-
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-
+            timer.pausedRemainingTime = tickingTime;
+            displayElement('#start-btn');
+            hideElement('#pause-btn')
             stopTimer(timerId);
-
-        } else if (time === 0) {
-
-            stopTimer(timerId)
-            timerExecutor()
-            const notify = document.getElementById('audio');
-            notify.play();
-
+        } else if (tickingTime === 0) {
+            stopTimer(timerId);
+            timerExecutor();
+            playNotification('#audio');
         } else {
-            time--
+            tickingTime--
         }
-
-        displayTime(time);
-
+        timer.time = formattedTime(tickingTime);
     }, 1000)
 }
 
@@ -237,7 +186,6 @@ function stopTimer(timer) {
 function pauseTimer() {
     timer.isPaused = true;
 }
-
 </script>
 
 
