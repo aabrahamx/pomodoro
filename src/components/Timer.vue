@@ -306,6 +306,6 @@ input {
     display: flex;
 }
 #btn-wrapper > div {
-    margin: 0 .5rem;
+    margin: 1rem .5rem;
 }
 </style>
