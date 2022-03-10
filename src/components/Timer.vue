@@ -2,25 +2,44 @@
 <template>
     <div id="session-wrapper">
         <label for="sessionNumber">Sessions</label>
-        <input v-model="timer.numberOfSessions" type="number" id="sessionNumber" min="1" max="10" step="1">
+        <input
+            v-model="timer.numberOfSessions"
+            type="number"
+            id="sessionNumber"
+            min="1"
+            max="10"
+            step="1"
+        />
     </div>
     <div id="setting-wrapper">
         <div>
-            <label for="focus"> Work </label>
-            <input v-model="timer.focusTime" type="number" min="5" max="120" step="5" id="focus">
+            <label for="focus">Work</label>
+            <input v-model="timer.focusTime" type="number" min="5" max="120" step="5" id="focus" />
         </div>
         <div>
-            <label for="short-break"> Short Break </label>
-            <input v-model="timer.shortBreak" type="number" min="5" max="30" step="5" id="short-break" >
+            <label for="short-break">Short Break</label>
+            <input
+                v-model="timer.shortBreak"
+                type="number"
+                min="5"
+                max="30"
+                step="5"
+                id="short-break"
+            />
         </div>
         <div>
-            <label for="long-break"> Long Break </label>
-            <input v-model="timer.longBreak" type="number" min="15" max="120" step="15" id="long-break">
+            <label for="long-break">Long Break</label>
+            <input
+                v-model="timer.longBreak"
+                type="number"
+                min="15"
+                max="120"
+                step="15"
+                id="long-break"
+            />
         </div>
     </div>
-    <div>
-        <button id="reset" @click="userReset"> Reset </button>
-    </div>
+
     <div id="timer-wrapper">
         <div>
             <div id="timer">
@@ -28,24 +47,30 @@
                     <span id="session"></span>
                 </div>
                 <div id="time-holder">
-                    <span> {{ timer.time }} </span>
+                    <span>{{ timer.time }}</span>
                 </div>
-                <div id="icon-wrapper">
-                    <div id="start-btn">
-                        <button @click="timeCounter"> Start </button>
-                    </div>
-                    <div id="pause-btn" style="display: none;">
-                        <button @click="pauseTimer"> Pause </button>
-                    </div>
-                </div>
+
                 <div>
-                    <span> {{ timer.currentSession }} / {{ timer.numberOfSessions }} </span>
+                    <span>{{ timer.currentSession }} / {{ timer.numberOfSessions }}</span>
                 </div>
             </div>
         </div>
     </div>
-    <audio id="audio" >
-        <source src="../assets/audio/positive-notification.mp3" type="audio/mp3" >
+        <div id="btn-wrapper">
+        <div>
+            <button id="reset" @click="userReset">Reset</button>
+        </div>
+        <div>
+            <div id="start-btn">
+                <button @click="timeCounter">Start</button>
+            </div>
+            <div id="pause-btn" style="display: none;">
+                <button @click="pauseTimer">Pause</button>
+            </div>
+        </div>
+    </div>
+    <audio id="audio">
+        <source src="../assets/audio/positive-notification.mp3" type="audio/mp3" />
     </audio>
 </template>
 
@@ -83,7 +108,7 @@ function userReset() {
     timer.focusTimeTurn = true;
     timer.shortBreakTurn = false;
     timer.longBreakTurn = false;
-    setTimeout(()=> {
+    setTimeout(() => {
         timer.isPaused = false;
         timer.pausedRemainingTime = null;
         timer.time = '00 : 00';
@@ -113,17 +138,22 @@ function setTurn(runningTurn) {
 
 function whichSessionToRun() {
     if (timer.focusTimeTurn === true) {
+
         console.log('focus')
         timer.currentSession++
         setTurn(timer.focusTime);
         displaySession('#session', 'Work Session 🎯')
         return timer.focusTime;
+
     } else if (timer.shortBreakTurn === true) {
+
         console.log('short')
         setTurn(timer.shortBreak);
         displaySession('#session', 'Short Break 🧘')
         return timer.shortBreak;
+
     } else if (timer.longBreakTurn === true) {
+
         console.log('long')
         timer.sessionOver = true;
         displaySession('#session', 'Long Break 🏖️')
@@ -191,14 +221,14 @@ function pauseTimer() {
 
 <style scoped>
 * {
-    color: #EDF5E1;
+    color: #edf5e1;
 }
 #timer-wrapper {
     height: 300px;
     width: 300px;
     margin: 10px auto;
-    background-color: #05386B;
-    border: 2px solid #8EE4AF;
+    background-color: #05386b;
+    border: 2px solid #8ee4af;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -208,8 +238,8 @@ function pauseTimer() {
     width: 85%;
     height: 85%;
     border-radius: 50%;
-    border: 3px solid #8EE4AF;
-    background-color: #5CDB95;
+    border: 3px solid #8ee4af;
+    background-color: #5cdb95;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,12 +248,12 @@ function pauseTimer() {
     height: 95%;
     width: 95%;
     border-radius: 50%;
-    background-color: #05386B;
+    background-color: #05386b;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 2px solid #8EE4AF;
+    border: 2px solid #8ee4af;
 }
 #time-holder {
     font-size: 1.5rem;
@@ -233,10 +263,12 @@ function pauseTimer() {
 }
 button {
     padding: 4px;
-    width: 70px;
-    border: 1px solid black;
-    
-    background-color: #8EE4AF;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #05386b;
+    color: #05386b;
+    font-weight: bolder;
+    background-color: #8ee4af;
     transition: transform 0.7 linear;
 }
 button:active,
@@ -244,15 +276,15 @@ button:hover {
     transform: scale(0.95);
 }
 
-
-
 /* setting styles */
 input {
-    padding-left: 25px;
     height: 20px;
     width: 50px;
     margin: 5px;
-    border: 1px solid #05386B;
+    text-align: center;
+    color: #05386b;
+    border: none;
+    background-color: #379683;
 }
 #setting-wrapper {
     display: flex;
@@ -268,12 +300,12 @@ input {
 #session-wrapper input {
     display: block;
     margin: 0.25rem auto;
-    text-align: center;
     width: 270px;
-    color: #05386B;
 }
-#reset {
-    width: 100px;
-    height: 30px;
+#btn-wrapper {
+    display: flex;
+}
+#btn-wrapper > div {
+    margin: 0 .5rem;
 }
 </style>
