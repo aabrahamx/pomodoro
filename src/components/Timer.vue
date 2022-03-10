@@ -18,6 +18,9 @@
             <input v-model="timer.longBreak" type="number" min="15" max="120" step="15" id="long-break">
         </div>
     </div>
+    <div>
+        <button id="reset" @click="userReset"> Reset </button>
+    </div>
     <div id="timer-wrapper">
         <div>
             <div id="timer">
@@ -40,9 +43,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <button id="reset" @click="userReset"> Reset </button>
     </div>
     <audio id="audio" >
         <source src="../assets/audio/positive-notification.mp3" type="audio/mp3" >
@@ -87,8 +87,8 @@ function userReset() {
         timer.isPaused = false;
         timer.pausedRemainingTime = null;
         timer.time = '00 : 00';
-    }, 1100)
-    console.log('resest')
+    }, 900)
+    displaySession('#session', '')
 }
 
 function setTurn(runningTurn) {
@@ -190,13 +190,15 @@ function pauseTimer() {
 
 
 <style scoped>
-
+* {
+    color: #EDF5E1;
+}
 #timer-wrapper {
     height: 300px;
     width: 300px;
     margin: 10px auto;
-    background-color: #adbbb2;
-    border: 1px solid black;
+    background-color: #05386B;
+    border: 2px solid #8EE4AF;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -206,8 +208,8 @@ function pauseTimer() {
     width: 85%;
     height: 85%;
     border-radius: 50%;
-    border: 2px solid black;
-    background-color: antiquewhite;
+    border: 3px solid #8EE4AF;
+    background-color: #5CDB95;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -216,12 +218,12 @@ function pauseTimer() {
     height: 95%;
     width: 95%;
     border-radius: 50%;
-    background-color: #adbbb2;
+    background-color: #05386B;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 1px solid black;
+    border: 2px solid #8EE4AF;
 }
 #time-holder {
     font-size: 1.5rem;
@@ -231,13 +233,10 @@ function pauseTimer() {
 }
 button {
     padding: 4px;
-    margin: 10px;
     width: 70px;
-    border-radius: 3px;
     border: 1px solid black;
-    border-bottom: 2px solid black;
-    color: black;
-    background-color: antiquewhite;
+    
+    background-color: #8EE4AF;
     transition: transform 0.7 linear;
 }
 button:active,
@@ -253,8 +252,7 @@ input {
     height: 20px;
     width: 50px;
     margin: 5px;
-    border: 1px solid black;
-    background-color: whitesmoke;
+    border: 1px solid #05386B;
 }
 #setting-wrapper {
     display: flex;
@@ -272,9 +270,10 @@ input {
     margin: 0.25rem auto;
     text-align: center;
     width: 270px;
+    color: #05386B;
 }
 #reset {
-    width: 270px;
-    height: 40px;
+    width: 100px;
+    height: 30px;
 }
 </style>

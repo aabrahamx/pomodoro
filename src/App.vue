@@ -13,7 +13,7 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Major+Mono+Display&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
     html, body {
-        background-color: antiquewhite;
+        background-color: #5CDB95;
         height: 100vh;
         width: 100vw;
         margin: 0;
