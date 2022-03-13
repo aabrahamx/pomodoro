@@ -1,11 +1,10 @@
 
 <script setup>
     import Timer from './components/Timer.vue'
-    import Explainer from './components/Explainer.vue'
 </script>
 
 <template> 
-    <div class="wrapper" id="timer">
+    <div class="wrapper">
         <Timer />
     </div>
 </template>
@@ -33,11 +32,5 @@
         justify-content: center;
         flex-direction: column;
         margin: auto;
-    }
-    #timer {
-        width: 50%;
-    }
-    #explainer {
-        width: 25%
     }
 </style>
