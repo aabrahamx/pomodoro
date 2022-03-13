@@ -142,7 +142,6 @@ function setTurn(runningTurn) {
 function whichSessionToRun() {
     if (timer.focusTimeTurn === true) {
 
-        console.log('focus')
         timer.currentSession++
         setTurn(timer.focusTime);
         displaySession('#session', 'Work Session 🎯')
@@ -150,14 +149,12 @@ function whichSessionToRun() {
 
     } else if (timer.shortBreakTurn === true) {
 
-        console.log('short')
         setTurn(timer.shortBreak);
         displaySession('#session', 'Short Break 🧘')
         return timer.shortBreak;
 
     } else if (timer.longBreakTurn === true) {
 
-        console.log('long')
         timer.sessionOver = true;
         displaySession('#session', 'Long Break 🏖️')
         return timer.longBreak;
