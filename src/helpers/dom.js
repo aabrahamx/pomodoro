@@ -11,7 +11,7 @@ function hideElement(cssSelector) {
 }
 
 
-// Audio Notification
+// Audio player
 function playNotification(cssSelector) {
     const domAudioElement = document.querySelector(cssSelector);
     domAudioElement.play();
