@@ -72,6 +72,9 @@
     <audio id="audio">
         <source src="../assets/audio/positive-notification.mp3" type="audio/mp3" />
     </audio>
+    <audio id="tickingAudio">
+        <source src="../assets/audio/Ticking.mp3"/>
+    </audio>
 </template>
 
 
@@ -206,6 +209,7 @@ function timeCounter() {
             tickingTime--
         }
         timer.time = formattedTime(tickingTime);
+        playNotification('#tickingAudio')
     }, 1000)
 }
 
