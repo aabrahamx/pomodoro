@@ -5,13 +5,15 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 5050",
-    "test": "vitest"
+    "test": "vitest --dom"
   },
   "dependencies": {
     "vue": "^3.2.29"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.1.0",
+    "@vue/test-utils": "^2.0.0-rc.17",
+    "happy-dom": "^2.46.3",
     "vite": "^2.7.13",
     "vitest": "^0.6.0"
   }
