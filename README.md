@@ -3,11 +3,12 @@
 A simple pomodoro timer to help boost productivity. The timer will alternate between the work sessions and short breaks times provided until the session amount provided is over. Future plans are to include user account, productivity trends and chrome web app download features.
 
 ## Technologies
-- 🟢 Vue 
+- 🟢 Vue3 : Composition API
 - 🟡 JavaScript
-- 🔵 CSS
-- 🔴 HTML
+- 🔵 CSS3 
+- 🔴 HTML5
 
+The project utilizes Vue 3 composition API
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
