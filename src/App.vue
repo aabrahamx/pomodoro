@@ -1,6 +1,6 @@
 
 <script setup>
-    import Timer from './components/Timer.vue'
+    import Timer from './components/Timer/Timer.vue'
 </script>
 
 <template> 
