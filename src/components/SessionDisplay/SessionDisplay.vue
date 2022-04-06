@@ -5,28 +5,15 @@ const props = defineProps({
     session: String
 });
 
-let expression;
-switch(props.session) {
-    case 'finished':
-        expression = 'yay! way to go! 👏🏼';
-        break;
-    case 'work':
-        expression = 'work ⏰';
-        break;
-    case 'short':
-        expression = 'short break 🧘🏽‍♂️';
-        break;
-    case 'long':
-        expression = 'long break 🏖'
-        break;
-    default: 
-        expression = 'ready to work?'
-}
 </script>
 
 <template>
     <div class="wrapper">
-        <span>{{ expression }}</span>
+        <span v-if="props.session === 'default'">Ready to work?</span>
+        <span v-else-if="props.session === 'finished'">Yay! Way to go! 👏🏼</span>
+        <span v-else-if="props.session === 'work'">Work ⏰</span>
+        <span v-else-if="props.session === 'short'">Short Break 🧘🏽‍♂️</span>
+        <span v-else-if="props.session === 'long'">Long Break 🏖</span>
     </div>
 </template>
 
