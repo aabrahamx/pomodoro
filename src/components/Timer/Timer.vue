@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from "vue";
-import SessionDisplay from '../SessionDisplay/SessionDisplay.vue'
+import SessionDisplay from '../SessionDisplay/SessionDisplay.vue';
+import UnloadingDisplay from "../UnloadingDisplay/UnloadingDisplay.vue";
 import {
     displayElement,
     hideElement,
@@ -20,7 +21,8 @@ const timer = reactive({
     numberOfSessions: 4,
 
     // --- mutated internally ---
-    time: null,
+    remainingTime: null,
+    startingTime: null,
 
     display: "00 : 00",
     isRunning: false,
@@ -60,7 +62,9 @@ function setNextTurn(currentRunningTurn) {
     }
 }
 function reset() {
-    (timer.time = null), (timer.display = "00 : 00");
+    timer.remainingTime = null;
+    timer.startingTime = null
+    timer.display = "00 : 00";
     timer.isRunning = false;
     timer.isPaused = false;
     timer.pausedRemainingTime = null;
@@ -70,13 +74,13 @@ function reset() {
     timer.sessionRunning = "default";
 }
 function sessionRunner() {
-    timer.time = sessionPicker();
-
+    timer.remainingTime = sessionPicker();
+    timer.startingTime = timer.remainingTime;
     counter.start(countDown);
 }
 function countDown() {
-    timer.display = formattedTime(timer.time);
-    timer.time === 0 ? timerManager() : timer.time--;
+    timer.display = formattedTime(timer.remainingTime);
+    timer.remainingTime === 0 ? timerManager() : timer.remainingTime--;
 }
 function timerManager() {
     counter.stop();
@@ -91,7 +95,7 @@ function handlePause() {
     counter.stop();
     timer.isPaused = true;
     timer.isRunning = false;
-    timer.pausedRemainingTime = timer.time;
+    timer.pausedRemainingTime = timer.remainingTime;
 }
 function sessionPicker() {
     if (timer.pausedRemainingTime) {
@@ -159,6 +163,7 @@ function sessionPicker() {
     </div>
 
     <div id="timer-wrapper">
+        <UnloadingDisplay :starting="timer.startingTime" :remaining="timer.remainingTime" />
         <div>
             <div id="timer">
                 <div id="time-holder">
