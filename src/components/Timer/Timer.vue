@@ -21,6 +21,7 @@ const timer = reactive({
 
     // --- mutated internally ---
     time: null,
+
     display: "00 : 00",
     isRunning: false,
     isPaused: false,
@@ -70,6 +71,7 @@ function reset() {
 }
 function sessionRunner() {
     timer.time = sessionPicker();
+
     counter.start(countDown);
 }
 function countDown() {
@@ -169,6 +171,7 @@ function sessionPicker() {
             </div>
         </div>
     </div>
+    <hr class="line-break">
     <SessionDisplay :session="timer.sessionRunning" />
     <div id="btn-wrapper">
         <div>
@@ -237,15 +240,16 @@ button {
     padding: 4px;
     width: 100px;
     height: 30px;
-    border: 1px solid #05386b;
+    border: 0px solid #05386b;
     color: #05386b;
     font-weight: bolder;
     background-color: #8ee4af;
-    transition: transform 0.7 linear;
+    transition: box-shadow .3s linear;
 }
 button:active,
 button:hover {
-    transform: scale(0.95);
+    box-shadow: -2px 2px 0px 0px #05386b;
+    border: 1px solid #05386b;
 }
 
 /* setting styles */
@@ -279,5 +283,12 @@ input {
 }
 #btn-wrapper > div {
     margin: 1rem 0.5rem;
+}
+
+.line-break {
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    border: none;
 }
 </style>
