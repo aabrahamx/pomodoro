@@ -18,7 +18,7 @@ const props = defineProps({
                 <span>{{ props.currentSession }} / {{ props.numberOfSessions }}</span>
             </div>
         </div>
-</div>
+    </div>
 </template>
 
 <style scoped>
