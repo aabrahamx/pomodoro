@@ -3,8 +3,9 @@
 </script>
 
 <template>
-    <div class="wrapper">
+    <div class="wrapper-task">
         <input 
+            class="task-input"
             type="text" 
             placeholder="what are you working on?"
         />
@@ -12,17 +13,25 @@
 </template>
 
 <style scoped>
-.wrapper {
+.wrapper-task {
     width: 100%;
+    margin-left: .5rem;
 }
-.wrapper > input {
+.wrapper-task > input {
     width: 100%;
     border: none;
+    color: #edf5e1;
     background-color: rgba(0, 0, 0, .2);
-    padding: 5px 3px;
+    font-weight: bold;
+    font-size: .9rem;
+    padding: 7px 3px;
+    text-align: center;
 }
-::placeholder {
+.task-input::placeholder {
     color: #edf5e1;
     text-align: center;
+}
+.task-input:focus {
+    outline: none;
 }
 </style>
