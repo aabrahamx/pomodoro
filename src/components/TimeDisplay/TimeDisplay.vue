@@ -1,53 +1,45 @@
 <script setup>
-    import { defineProps } from 'vue';
+import { defineProps } from "vue";
 
-    const props = defineProps({
-        timer: String,
-        currentSession: Number,
-        numberOfSessions: Number,
-    });
+const props = defineProps({
+    timer: String,
+    currentSession: Number,
+    numberOfSessions: Number,
+});
 </script>
 
 <template>
-    <div class="wrapper">
-        <div id="timer">
-            <div id="time-holder">
+    <div class="wrapper-timer">
+        <div class="container-timer">
+            <div class="timer">
                 <span>{{ props.timer }}</span>
             </div>
-
             <div>
                 <span>{{ props.currentSession }} / {{ props.numberOfSessions }}</span>
             </div>
         </div>
-    </div>
+</div>
 </template>
 
 <style scoped>
-.wrapper {
+.wrapper-timer {
     width: 240px;
     height: 240px;
+    color: #edf5e1;
 }
 
-.wrapper > div {
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.container-timer {
     position: fixed;
-}
-#timer {
     width: 240px;
     height: 240px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border-radius: 50%;
 }
-#time-holder {
+
+.timer {
     font-size: 1.5rem;
-}
-#timer > div {
-    margin: 5px;
 }
 </style>
