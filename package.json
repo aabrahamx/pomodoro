@@ -8,6 +8,7 @@
     "test": "vitest --dom"
   },
   "dependencies": {
+    "pinia": "^2.0.13",
     "vue": "^3.2.29"
   },
   "devDependencies": {
