@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 
-// useStore could be anything like useUser, useCart
-// the first argument is a unique id of the store across your application
+// first argument is a unique id of the store across application
 export const useTimer = defineStore('timer', {
   state: () => {
       return {
@@ -11,4 +10,5 @@ export const useTimer = defineStore('timer', {
           sessionAmount: 4
       }
   }
-})
+});
+// need to migrate the rest of global state here
