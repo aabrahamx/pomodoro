@@ -1,6 +1,11 @@
 <script setup>
 import Timer from '../components/Timer/Timer.vue'
 import Header from '../components/Header/Header.vue';
+
+const windowHeight = window.innerHeight;
+document.documentElement.style
+    .setProperty('--window-height', `${windowHeight}px`);
+
 </script>
 
 <template>
@@ -13,9 +18,12 @@ import Header from '../components/Header/Header.vue';
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Major+Mono+Display&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+:root {
+    --window-height: '';
+}
 #app {
     background-color: #5cdb95;
-    height: 100vh;
+    height: var(--window-height);
     width: 100vw;
     margin: 0;
     padding: 0;
