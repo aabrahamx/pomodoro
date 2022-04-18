@@ -167,7 +167,6 @@
   .container-bottom,
   .container-btn {
     width: 100%;
-    overflow: hidden;
   }
   .container-top,
   .container-main,
@@ -193,20 +192,22 @@
     background-color: #5cdb95;
   }
   .btn {
-    width: 100px;
-    height: 30px;
-    padding: 4px;
-    margin: 10px 15px;
+    width: 150px;
+    height: 40px;
+    margin: 20px 25px;
     border: none;
+    border-radius: 10px;
     font-weight: bolder;
-    color: #05386b;
-    background-color: #8ee4af;
+    font-size: 1rem;
+    color: black;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s linear;
   }
   .btn:active,
   .btn:hover {
-    border: 1px solid #05386b;
-    box-shadow: -2px 2px 0px 0px #05386b;
+    border: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: none;
   }
   .line-break {
     width: 100%;

@@ -15,6 +15,6 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    color: #05386b;
+    color: black;
 }
 </style>

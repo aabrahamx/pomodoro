@@ -19,9 +19,11 @@
 <style scoped>
   .wrapper-session {
     width: 100%;
+    height: 32.5px;
     padding: 5px 3px;
+    border-radius: 10px;
     text-align: center;
-    color: #edf5e1;
-    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 </style>

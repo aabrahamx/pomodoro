@@ -13,12 +13,14 @@ const showSetting = ref(false);
     <div class="wrapper">
         <button class="btn-toggle" @click="showSetting = !showSetting">
             <img width="20"
-                src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/ffffff/external-setting-essentials-pack-tanah-basah-glyph-tanah-basah.png" />
+                src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/00000/external-setting-essentials-pack-tanah-basah-glyph-tanah-basah.png" />
         </button>
 
         <div v-if="showSetting" class="wrapper-setting">
             <form class="container-setting">
-                <button class="btn-toggle" @click="showSetting = !showSetting">x</button>
+                <button class="btn-toggle" @click="showSetting = !showSetting">
+                    <img width="20" src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png"/>
+                </button>
                 <section id="session-wrapper">
                     <label for="session-number">
                         <span class="label-title">Number of Sessions</span>
@@ -68,9 +70,13 @@ const showSetting = ref(false);
 }
 .btn-toggle {
     border: 0;
-    margin: 0;
-    padding: 0;
-    background-color: inherit;
+    height: 32.5px;
+    width: 35px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .wrapper-setting {
     position: fixed;
