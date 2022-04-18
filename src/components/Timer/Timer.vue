@@ -29,7 +29,7 @@
     remainingTime: null,
     startingTime: null,
 
-    display: "25 : 00",
+    display: "",
     isRunning: false,
     isPaused: false,
     pausedRemainingTime: null,
@@ -69,7 +69,7 @@
   function reset() {
     timer.remainingTime = null;
     timer.startingTime = null;
-    timer.display = "00 : 00";
+    timer.display = "";
     timer.isRunning = false;
     timer.isPaused = false;
     timer.pausedRemainingTime = null;
@@ -80,7 +80,6 @@
   }
   function sessionRunner() {
     timer.remainingTime = sessionPicker();
-    timer.startingTime = timer.remainingTime;
     counter.start(countDown);
   }
   function countDown() {
@@ -112,14 +111,17 @@
         timer.sessionRunning = "work";
         timer.currentSession++;
         setNextTurn("work");
+        timer.startingTime = changeMinuteToSecond(timer.focusTime);
         return changeMinuteToSecond(timer.focusTime);
       } else if (timer.sessionTurn === "short") {
         timer.sessionRunning = "short";
         setNextTurn("short");
+        timer.startingTime = changeMinuteToSecond(timer.shortBreak);
         return changeMinuteToSecond(timer.shortBreak);
       } else if (timer.sessionTurn === "long") {
         timer.sessionRunning = "long";
         timer.sessionOver = true;
+        timer.startingTime = changeMinuteToSecond(timer.longBreak);
         return changeMinuteToSecond(timer.longBreak);
       }
     }
@@ -135,11 +137,13 @@
 
     <section class="container-main">
       <div>
-        <Loader :height="(timer.remainingTime / timer.startingTime) * 100" />
+        <Loader v-if="timer.remainingTime && timer.startingTime" :height="(timer.remainingTime / timer.startingTime) * 100" />
+        <Loader v-else :height="100" />
         <TimeDisplay
-          :timer="timer.display"
+          :timer="timer.display || `${timer.focusTime} : 00`"
           :current-session="timer.currentSession"
           :number-of-sessions="timer.numberOfSessions"
+          :running="timer.isRunning"
         />
       </div>
     </section>

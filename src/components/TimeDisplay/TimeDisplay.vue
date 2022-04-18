@@ -5,6 +5,7 @@ const props = defineProps({
     timer: String,
     currentSession: Number,
     numberOfSessions: Number,
+    running: String
 });
 </script>
 
@@ -18,7 +19,7 @@ const props = defineProps({
                 <span class="session-holder">{{ props.currentSession }} / {{ props.numberOfSessions }}</span>
             </div>
         </div>
-        <div class="container-animation">
+        <div class="container-animation" :class="{animate: props.running}">
             <div class="top">
                 <div class="pointer"></div>
             </div>
@@ -74,6 +75,20 @@ const props = defineProps({
     transform: rotate(45deg);
     overflow: hidden;
     padding: 1rem;
+}
+.container-animation.animate {
+    animation: rotate .5s linear forwards;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(45deg);
+    }
+    99% {
+        transform: rotate(405deg);
+    }
+    100% {
+        opacity: 0;
+    }
 }
 .container-animation > div {
     height: 33.33%;
