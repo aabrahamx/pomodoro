@@ -102,7 +102,7 @@ const props = defineProps({
 }
 
 .pointer {
-    background: #5cdb95;
+    background: rgb(229, 229, 229);
     border-radius: 10px;
 }
 .top > .pointer,

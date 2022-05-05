@@ -21,9 +21,11 @@
     width: 100%;
     height: 32.5px;
     padding: 5px 3px;
-    border-radius: 10px;
+    border-radius: 0.25rem;
     text-align: center;
-    color: black;
-    background-color: rgba(0, 0, 0, 0.1);
+    font-size: .75em;
+    color: rgb(229, 229, 229, .75);
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(229, 229, 229, 0.25);
   }
 </style>

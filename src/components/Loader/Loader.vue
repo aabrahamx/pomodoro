@@ -21,10 +21,10 @@ const props = defineProps({
     display: flex;
     justify-content: flex-end;
     overflow: hidden;
-    border: 1px solid #05386b;
+    border: 1px solid #14213d;
 }
 .wrapper > div {
-    background-color: #05386b;
+    background-color: rgb(20, 33, 61, .55);
     height: 100%;
     width: 100%;
 }

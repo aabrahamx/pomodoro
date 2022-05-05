@@ -12,20 +12,20 @@ const showSetting = ref(false);
 <template>
     <div class="wrapper">
         <button class="btn-toggle" @click="showSetting = !showSetting">
-            <img width="20"
-                src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/00000/external-setting-essentials-pack-tanah-basah-glyph-tanah-basah.png" />
+            <img width="18"
+                src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/ffffff/external-setting-essentials-pack-tanah-basah-glyph-tanah-basah.png" />
         </button>
 
         <div v-if="showSetting" class="wrapper-setting">
             <form class="container-setting">
                 <button class="btn-toggle" @click="showSetting = !showSetting">
-                    <img width="20" src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png"/>
+                    <img width="20" src="https://img.icons8.com/ios-glyphs/30/ffffff/delete-sign.png"/>
                 </button>
                 <section id="session-wrapper">
                     <label for="session-number">
                         <span class="label-title">Number of Sessions</span>
                         <br>
-                        <span class="input-value">{{ sessionAmount }} minutes</span>
+                        <span class="input-value">{{ sessionAmount }}</span>
                     </label>
                     <input v-model="sessionAmount" type="range" id="session-number" min="1" max="10" step="1" />
                 </section>
@@ -59,9 +59,6 @@ const showSetting = ref(false);
 </template>
 
 <style scoped>
-* {
-    outline: 0px solid red;
-}
 .wrapper {
     width: fit-content;
     height: fit-content;
@@ -72,8 +69,9 @@ const showSetting = ref(false);
     border: 0;
     height: 32.5px;
     width: 35px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(229, 229, 229, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +81,7 @@ const showSetting = ref(false);
     width: 100vw;
     height: 95vh;
     left: 0;
-    top: 5vh;
+    top: 6vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -95,8 +93,8 @@ const showSetting = ref(false);
     max-width: 25rem;
     height: 85%;
     padding: 1rem;
-    background-color: #5cdb95;
-    border: 1px solid black;
+    background-color: #000;
+    border: 1px solid rgb(255, 255, 255, .1);
 }
 .container-setting > section {
     margin-bottom: 10px;
@@ -109,10 +107,12 @@ label {
     text-align: center;
 }
 .label-title {
-    font-weight: bolder
+    font-weight: bolder;
+    color: rgb(255, 255, 255, .9);
 }
 .input-value {
     font-size: .85rem;
+    color: rgb(255, 255, 255, .5);
     margin-top: 1rem;
 }
 </style>

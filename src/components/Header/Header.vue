@@ -4,7 +4,7 @@
 
 <template>
     <header class="wrapper-header">
-        <h4>Pomodoro Timer</h4>
+        <h4>ProTimer</h4>
     </header>
 </template>
 
@@ -15,6 +15,6 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    color: black;
+    color: #FFF;
 }
 </style>

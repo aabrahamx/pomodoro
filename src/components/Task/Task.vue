@@ -21,21 +21,20 @@
     width: 100%;
     height: 32.5px;
     border: none;
-    color: rgba(0, 0, 0, 0.65);
-    background: rgba(0, 0, 0, 0.1);
-    font-weight: bold;
-    font-size: .9rem;
+    color: rgb(229, 229, 229, .75);
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(229, 229, 229, 0.25);
+    font-size: .75em;
     padding: 7px 3px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: .25rem;
     transition: box-shadow 0.3s linear;
 }
 .task-input::placeholder {
-    color: rgba(0, 0, 0, 0.55);
+    color: rgb(229, 229, 229, .75);
     text-align: center;
 }
 .task-input:focus {
-    outline: none;
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, .2)
+    outline: 1px solid rgba(229, 229, 229, 0.5);
 }
 </style>

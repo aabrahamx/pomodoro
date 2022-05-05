@@ -22,7 +22,7 @@ document.documentElement.style
     --window-height: '';
 }
 #app {
-    background-color: #5cdb95;
+    background-color: #000000;
     height: var(--window-height);
     width: 100vw;
     margin: 0;
@@ -43,7 +43,7 @@ document.documentElement.style
 .line-break {
     width: 100%;
     height: 1px;
-    background-color: rgba(0, 0, 0, .9);
+    background: rgb(229, 229, 229, .65);
     border: none;
 }
 </style>
