@@ -77,13 +77,29 @@ const props = defineProps({
     padding: 1rem;
 }
 .container-animation.animate {
+    -webkit-animation: rotate .5s linear forwards;
     animation: rotate .5s linear forwards;
 }
-@keyframes rotate {
+@-webkit-keyframes rotate {
     0% {
+        -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
     }
     99% {
+        -webkit-transform: rotate(405deg);
+        transform: rotate(405deg);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes rotate {
+    0% {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    99% {
+        -webkit-transform: rotate(405deg);
         transform: rotate(405deg);
     }
     100% {
