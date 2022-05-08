@@ -2,17 +2,19 @@
   "name": "pomodoro",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
+    "dev": "vite",
     "preview": "vite preview --port 5050",
     "test": "vitest --dom"
   },
   "dependencies": {
     "pinia": "^2.0.13",
+    "register-service-worker": "^1.7.2",
     "vue": "^3.2.29"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.1.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/test-utils": "^2.0.0-rc.17",
     "happy-dom": "^2.46.3",
     "vite": "^2.7.13",
