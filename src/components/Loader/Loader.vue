@@ -17,14 +17,13 @@ const props = defineProps({
     width: 240px;
     height: 240px;
     border-radius: 50%;
-    position: fixed;
+    position: absolute;
     display: flex;
-    justify-content: flex-end;
+    align-items: flex-end;
     overflow: hidden;
-    border: 1px solid #14213d;
 }
 .wrapper > div {
-    background-color: rgb(20, 33, 61, .55);
+    background-color: var(--background-main);
     height: 100%;
     width: 100%;
 }

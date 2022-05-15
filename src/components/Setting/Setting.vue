@@ -1,25 +1,27 @@
 <script setup>
 import { ref } from "vue";
 import { storeToRefs } from 'pinia';
-import { useTimer } from "../../app/store";
+import { useStore } from "../../app/store";
 
-const store = useTimer();
+import Card from "../Card/Card.vue";
 
+const store = useStore();
 const { workSession, shortBreak, longBreak, sessionAmount } = storeToRefs(store);
+
 const showSetting = ref(false);
 </script>
 
 <template>
-    <div class="wrapper">
-        <button class="btn-toggle" @click="showSetting = !showSetting">
-            <img width="18"
+    <Card width="fit-content">
+        <button class="btn" @click="showSetting = !showSetting">
+            <img class="icon"
                 src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/ffffff/external-setting-essentials-pack-tanah-basah-glyph-tanah-basah.png" />
         </button>
 
-        <div v-if="showSetting" class="wrapper-setting">
-            <form class="container-setting">
-                <button class="btn-toggle" @click="showSetting = !showSetting">
-                    <img width="20" src="https://img.icons8.com/ios-glyphs/30/ffffff/delete-sign.png"/>
+        <div v-if="showSetting" @click.self="showSetting = !showSetting" class="setting-container">
+            <form class="form">
+                <button class="btn" @click="showSetting = !showSetting">
+                    <img class="icon" src="https://img.icons8.com/ios-glyphs/30/ffffff/delete-sign.png" />
                 </button>
                 <section id="session-wrapper">
                     <label for="session-number">
@@ -55,61 +57,64 @@ const showSetting = ref(false);
                 </section>
             </form>
         </div>
-    </div>
+    </Card>
 </template>
 
 <style scoped>
-.wrapper {
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    align-items: flex-start;
-}
-.btn-toggle {
-    border: 0;
-    height: 32.5px;
-    width: 35px;
-    border-radius: 0.25rem;
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(229, 229, 229, 0.25);
+.btn {
+    width: 37.5px;
+    border: none;
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.wrapper-setting {
+.icon {
+    width: 1.1rem;
+    opacity: .7;
+}
+
+.setting-container {
     position: fixed;
     width: 100vw;
-    height: 95vh;
+    height: 100vh;
     left: 0;
-    top: 6vh;
+    top: 0;
+    backdrop-filter: blur(10px);
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    z-index: 12;
+    z-index: 15;
 }
-.container-setting {
-    box-sizing: border-box;
+
+.form {
     width: 100%;
-    max-width: 25rem;
-    height: 85%;
+    max-width: 20rem;
+    height: 75%;
     padding: 1rem;
-    background-color: #000;
-    border: 1px solid rgb(255, 255, 255, .1);
+    border-radius: .5rem;
+    backdrop-filter: blur(100px);
+    background: var(--background-main);
+    border: 1px solid var(--border-sec-color);
 }
-.container-setting > section {
+
+.form>section {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
+
 label {
     text-align: center;
 }
+
 .label-title {
     font-weight: bolder;
     color: rgb(255, 255, 255, .9);
 }
+
 .input-value {
     font-size: .85rem;
     color: rgb(255, 255, 255, .5);

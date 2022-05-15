@@ -1,20 +1,22 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import { storeToRefs } from "pinia";
-import { useTimer } from "../../app/store";
+import { useStore } from "../../app/store";
 
 import Session from "../Session/Session.vue";
 import Loader from "../Loader/Loader.vue";
 import TimeDisplay from "../TimeDisplay/TimeDisplay.vue";
-import Setting from "../Setting/Setting.vue";
-import Task from "../Task/Task.vue";
+
 
 import {
   changeMinuteToSecond,
   formattedTime,
 } from "../../helpers/time-formatters.js";
+import SectionBar from "../SectionBar/SectionBar.vue";
+import Setting from "../Setting/Setting.vue";
+import Task from "../Task/Task.vue";
 
-const store = useTimer();
+const store = useStore();
 const { workSession, shortBreak, longBreak, sessionAmount } =
   storeToRefs(store);
 
@@ -130,10 +132,12 @@ function sessionPicker() {
 
 <template>
   <main class="wrapper-main">
-    <section class="container-top">
+
+    <SectionBar>
       <Setting />
       <Task />
-    </section>
+    </SectionBar>
+    
 
     <section class="container-main">
       <div>
@@ -150,10 +154,11 @@ function sessionPicker() {
       </div>
     </section>
 
-    <hr class="line-break" />
+    <SectionBar>
+      <Session :session="timer.sessionRunning" />
+    </SectionBar>
 
     <section class="container-bottom">
-      <Session :session="timer.sessionRunning" />
       <div class="container-btn">
         <button class="btn" @click="handleReset">Reset</button>
         <button class="btn" @click="handleStart" v-if="!timer.isRunning">
@@ -190,6 +195,7 @@ function sessionPicker() {
   margin: 2rem auto;
   border-radius: 50%;
   background-color: rgb(20, 33, 61, .5);
+  box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.25);
 }
 
 .container-main>div {
@@ -200,20 +206,24 @@ function sessionPicker() {
   background-color: #000000;
 }
 
-.container.btn {
+.container-btn {
+  display: flex;
   justify-content: space-between;
 }
 .btn {
-  width: 150px;
+  width: 42.5%;
   height: 40px;
-  margin: 20px auto;
+  margin: 1rem;
   border-radius: .25rem;
   font-size: 1rem;
   color: #fff;
-  border: 1px solid rgb(255, 255, 255, 0.65);
-  box-shadow: 0px 3px 0px 0px rgb(255, 255, 255, 0.65);
-  background-color: rgb(255, 255, 255, 0.075);
-  transition: box-shadow 0.4s linear;
+  background: rgba(0, 0, 0, 0.25);
+  border: none;
+  box-shadow: 0px 2px 0px 0px var(--highlighted-color);
+  transition: all 0.4s linear;
+}
+.btn:hover {
+  background: rgba(0, 0, 0, 1);
 }
 
 .btn:active,
