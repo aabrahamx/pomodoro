@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { storeToRefs } from 'pinia';
 import { useStore } from "../../app/store";
 
-import Card from "../Card/Card.vue";
+import Card from "../card/Card.vue";
 
 const store = useStore();
 const { workSession, shortBreak, longBreak, sessionAmount } = storeToRefs(store);
