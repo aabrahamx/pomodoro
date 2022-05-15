@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 // first argument is a unique id of the store across application
-export const useTimer = defineStore('timer', {
+export const useStore = defineStore('timer', {
   state: () => {
       return {
           workSession: 25,

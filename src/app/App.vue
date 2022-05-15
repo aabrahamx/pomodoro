@@ -1,6 +1,7 @@
 <script setup>
 import Timer from '../components/Timer/Timer.vue'
 import Header from '../components/Header/Header.vue';
+import Footer from '../components/Footer/Footer.vue';
 
 const windowHeight = window.innerHeight;
 document.documentElement.style
@@ -9,41 +10,26 @@ document.documentElement.style
 </script>
 
 <template>
-    <div class="wrapper">
-        <Header />
-        <hr class="line-break"/>
-        <Timer />
-    </div>
+
+    <Header />
+    <Timer />
+    <Footer />
+
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Major+Mono+Display&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import '@/assets/global.css';
+@import '@/assets/base.css';
+
 :root {
     --window-height: '';
 }
-#app {
-    background-color: #000000;
-    height: var(--window-height);
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    font-family: "Outfit", sans-serif;
-    font-weight: 700;
 
-}
-.wrapper {
+#app {
     margin: auto;
-    width: 100%;
-    max-width: 25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.line-break {
-    width: 100%;
-    height: 1px;
-    background: rgb(229, 229, 229, .65);
-    border: none;
+    padding: 0 1rem;
+    width: 100vw;
+    max-width: 32.5rem;
+    height: var(--window-height);
 }
 </style>

@@ -46,7 +46,7 @@ const props = defineProps({
 }
 
 .container-timer {
-    position: fixed;
+    position: absolute;
     width: 240px;
     height: 240px;
     display: flex;
@@ -69,7 +69,7 @@ const props = defineProps({
 .container-animation {
     width: 240px;
     height: 240px;
-    position: fixed;
+    position: absolute;
     z-index: 10;
     border-radius: 50%;
     transform: rotate(45deg);
@@ -80,32 +80,19 @@ const props = defineProps({
     -webkit-animation: rotate .5s linear forwards;
     animation: rotate .5s linear forwards;
 }
-@-webkit-keyframes rotate {
-    0% {
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-    99% {
-        -webkit-transform: rotate(405deg);
-        transform: rotate(405deg);
-    }
-    100% {
-        opacity: 0;
-    }
-}
+
 @keyframes rotate {
     0% {
-        -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
     }
     99% {
-        -webkit-transform: rotate(405deg);
         transform: rotate(405deg);
     }
     100% {
         opacity: 0;
     }
 }
+
 .container-animation > div {
     height: 33.33%;
 }
@@ -123,12 +110,12 @@ const props = defineProps({
 }
 .top > .pointer,
 .bottom > .pointer {
-    height: 20px;
+    height: 12.5px;
     width: 6px;
 }
 .left > .pointer,
 .right > .pointer {
-    width: 20px;
+    width: 12.5px;
     height: 6px;
 }
 

@@ -3,18 +3,22 @@
 </script>
 
 <template>
-    <header class="wrapper-header">
-        <h4>ProTimer</h4>
+    <header>
+        <h2>ProTimer</h2>
     </header>
 </template>
 
 <style scoped>
-.wrapper-header {
-    height: 5vh;
+header {
+    height: 7vh;
     width: 100%;
+    margin-bottom: .25rem;
+    font-weight: bolder;
+    color: var(--highlighted-color);
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    color: #FFF;
+    align-items: flex-end;
+}
+h2 {
+    line-height: 0%;
 }
 </style>
