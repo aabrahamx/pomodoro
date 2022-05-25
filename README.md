@@ -1,4 +1,5 @@
 # Pomodoro Timer ⏰
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ae7b4ee0-7b3d-497f-8088-c2fc5a15ea61/deploy-status)](https://app.netlify.com/sites/simplepomodoro123/deploys)
 
 A simple pomodoro timer to help boost productivity. The timer will alternate between the work sessions and short breaks times provided until the session amount provided is over. Future plans are to include user account, productivity trends and chrome web app download features.
 
