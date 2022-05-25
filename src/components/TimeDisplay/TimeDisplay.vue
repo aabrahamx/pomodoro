@@ -1,51 +1,53 @@
 <script setup>
-import { defineProps } from "vue";
+  import { defineProps } from 'vue';
 
-const props = defineProps({
+  const props = defineProps({
     timer: String,
     currentSession: Number,
     numberOfSessions: Number,
-    running: String
-});
+    running: Boolean,
+  });
 </script>
 
 <template>
-    <div class="wrapper-timer">
-        <div class="container-timer">
-            <div>
-                <span class="time-holder">{{ props.timer }}</span>
-            </div>
-            <div>
-                <span class="session-holder">{{ props.currentSession }} / {{ props.numberOfSessions }}</span>
-            </div>
-        </div>
-        <div class="container-animation" :class="{animate: props.running}">
-            <div class="top">
-                <div class="pointer"></div>
-            </div>
-            <div class="center">
-                <div class="left">
-                    <div class="pointer"></div>
-                </div>
-                <div class="right">
-                    <div class="pointer"></div>
-                </div>
-            </div>
-            <div class="bottom">
-                <div class="pointer"></div>
-            </div>
-        </div>
+  <div class="wrapper-timer">
+    <div class="container-timer">
+      <div>
+        <span class="time-holder">{{ props.timer }}</span>
+      </div>
+      <div>
+        <span class="session-holder"
+          >{{ props.currentSession }} / {{ props.numberOfSessions }}</span
+        >
+      </div>
     </div>
+    <div class="container-animation" :class="{ animate: props.running }">
+      <div class="top">
+        <div class="pointer"></div>
+      </div>
+      <div class="center">
+        <div class="left">
+          <div class="pointer"></div>
+        </div>
+        <div class="right">
+          <div class="pointer"></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="pointer"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-.wrapper-timer {
+  .wrapper-timer {
     width: 240px;
     height: 240px;
     color: #edf5e1;
-}
+  }
 
-.container-timer {
+  .container-timer {
     position: absolute;
     width: 240px;
     height: 240px;
@@ -54,19 +56,18 @@ const props = defineProps({
     justify-content: center;
     flex-direction: column;
     border-radius: 50%;
-}
+  }
 
-.container-timer>div {
-    margin: .15rem auto;
-}
+  .container-timer > div {
+    margin: 0.15rem auto;
+  }
 
-.time-holder {
+  .time-holder {
     font-size: 1.85rem;
     font-weight: bold;
-}
+  }
 
-
-.container-animation {
+  .container-animation {
     width: 240px;
     height: 240px;
     position: absolute;
@@ -75,59 +76,74 @@ const props = defineProps({
     transform: rotate(45deg);
     overflow: hidden;
     padding: 1rem;
-}
-.container-animation.animate {
-    -webkit-animation: rotate .5s linear forwards;
-    animation: rotate .5s linear forwards;
-}
+  }
+  .container-animation.animate {
+    -webkit-animation: rotate 0.5s linear forwards;
+    animation: rotate 0.5s linear forwards;
+  }
 
-@keyframes rotate {
+  @keyframes rotate {
     0% {
-        transform: rotate(45deg);
+      transform: rotate(45deg);
     }
     99% {
-        transform: rotate(405deg);
+      transform: rotate(405deg);
     }
     100% {
-        opacity: 0;
+      opacity: 0;
     }
-}
+  }
 
-.container-animation > div {
+  .container-animation > div {
     height: 33.33%;
-}
-.center {
+  }
+  .center {
     display: flex;
-}
-.center > div {
+  }
+  .center > div {
     width: 50%;
     height: 100%;
-}
+  }
 
-.pointer {
+  .pointer {
     background: rgb(229, 229, 229);
     border-radius: 10px;
-}
-.top > .pointer,
-.bottom > .pointer {
+  }
+  .top > .pointer,
+  .bottom > .pointer {
     height: 12.5px;
     width: 6px;
-}
-.left > .pointer,
-.right > .pointer {
+  }
+  .left > .pointer,
+  .right > .pointer {
     width: 12.5px;
     height: 6px;
-}
+  }
 
-.top, .left, .right, .bottom {
+  .top,
+  .left,
+  .right,
+  .bottom {
     display: flex;
-}
-.left, .right {align-items: center;}
-.top, .bottom {justify-content: center;}
-.left {justify-content: flex-start;}
-.right {justify-content: flex-end;}
-.top {align-items: flex-start;}
-.bottom {align-items: flex-end;}
-
-
+  }
+  .left,
+  .right {
+    align-items: center;
+  }
+  .top,
+  .bottom {
+    justify-content: center;
+  }
+  .left {
+    justify-content: flex-start;
+  }
+  .right {
+    justify-content: flex-end;
+  }
+  .top {
+    align-items: flex-start;
+  }
+  .bottom {
+    align-items: flex-end;
+  }
 </style>

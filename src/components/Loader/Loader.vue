@@ -1,19 +1,24 @@
 <script setup>
-import { defineProps } from 'vue';
+  import { defineProps } from 'vue';
 
-const props = defineProps({
+  const props = defineProps({
     height: Number,
-});
+  });
 </script>
 
 <template>
-    <div class="wrapper">
-        <div :style="{ height: props.height + '%' }"></div>
-    </div>
+  <div class="wrapper">
+    <div v-if="!props.height" class="bg-slate-900"></div>
+    <div
+      v-else
+      :style="{ height: props.height + '%' }"
+      class="bg-slate-900"
+    ></div>
+  </div>
 </template>
 
 <style scoped>
-.wrapper {
+  .wrapper {
     width: 240px;
     height: 240px;
     border-radius: 50%;
@@ -21,10 +26,9 @@ const props = defineProps({
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-}
-.wrapper > div {
-    background-color: var(--background-main);
+  }
+  .wrapper > div {
     height: 100%;
     width: 100%;
-}
+  }
 </style>
