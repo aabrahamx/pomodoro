@@ -1,0 +1,112 @@
+<script setup>
+  import { toRefs } from 'vue';
+
+  const props = defineProps({
+    running: {
+      type: Boolean,
+      required: true,
+    },
+  });
+  const { running } = toRefs(props);
+</script>
+
+<template>
+  <div class="container-animation" :class="{ animate: running }">
+    <div class="top">
+      <div class="pointer"></div>
+    </div>
+    <div class="center">
+      <div class="left">
+        <div class="pointer"></div>
+      </div>
+      <div class="right">
+        <div class="pointer"></div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="pointer"></div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+  .container-animation {
+    width: 240px;
+    height: 240px;
+    position: absolute;
+    z-index: 10;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    overflow: hidden;
+    padding: 1rem;
+  }
+  .container-animation.animate {
+    -webkit-animation: rotate 0.5s linear forwards;
+    animation: rotate 0.5s linear forwards;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(45deg);
+    }
+    99% {
+      transform: rotate(405deg);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .container-animation > div {
+    height: 33.33%;
+  }
+  .center {
+    display: flex;
+  }
+  .center > div {
+    width: 50%;
+    height: 100%;
+  }
+
+  .pointer {
+    background: rgb(229, 229, 229);
+    border-radius: 10px;
+  }
+  .top > .pointer,
+  .bottom > .pointer {
+    height: 12.5px;
+    width: 6px;
+  }
+  .left > .pointer,
+  .right > .pointer {
+    width: 12.5px;
+    height: 6px;
+  }
+
+  .top,
+  .left,
+  .right,
+  .bottom {
+    display: flex;
+  }
+  .left,
+  .right {
+    align-items: center;
+  }
+  .top,
+  .bottom {
+    justify-content: center;
+  }
+  .left {
+    justify-content: flex-start;
+  }
+  .right {
+    justify-content: flex-end;
+  }
+  .top {
+    align-items: flex-start;
+  }
+  .bottom {
+    align-items: flex-end;
+  }
+</style>

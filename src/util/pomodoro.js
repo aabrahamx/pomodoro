@@ -1,39 +1,76 @@
+import { minToSec } from '@/helpers/formatters.js';
+
 export default class Pomodoro {
-  constructor() {
-    this.state = "default";
-    this.isPaused = false;
-    this.timer = null;
-    this.focus = 30;
-    this.short = 5;
-    this.long = 15;
+  constructor(settings) {
+    this.setting = settings;
+    this.timerID = null;
+    this.time = null;
+    this.startingTime = null;
+    this.paused = null;
+    this.sessCount = 0;
+    this.state = 'idle';
+    this.isRunning = false;
   }
 
-  setFocus(time) {
-    this.focus = time;
-  }
-  setShort(time) {
-    this.short = time;
-  }
-  setLong(time) {
-    this.long = time;
-  }
-  setState(str) {
-    if (
-      str !== "default" ||
-      str !== "focus" ||
-      str !== "short" ||
-      str !== "long" ||
-      str !== "finished"
-    ) {
-      return new Error("wrong passed value");
-    }
-    this.state = time;
+  start() {
+    this.isRunning = true;
+    this.time = this.sessRunner();
+    this.startingTime = this.time;
+    this.timerID = setInterval(() => {
+      this.time > 0 ? this.time-- : this.handleTimerFinish();
+    }, 1000);
   }
 
-  start(func) {
-    this.timer = setInterval(func, 1000);
-  }
   stop() {
-    clearSetInterval(this.timer);
+    this.isRunning = false;
+    clearInterval(this.timerID);
+    if (this.time > 0) {
+      this.paused = this.time;
+    }
+  }
+
+  handleTimerFinish() {
+    this.stop();
+    const allSessDone = this.sessCount === this.setting.sessions;
+    const longBreakDone = this.state === 'long';
+    if (allSessDone && longBreakDone) {
+      this.reset();
+    } else {
+      this.start();
+    }
+  }
+
+  sessRunner() {
+    if (this.paused) {
+      const paused = this.paused;
+      this.paused = null;
+      return paused;
+    }
+
+    if (this.sessCount === this.setting.sessions) {
+      this.state = 'long';
+      return minToSec(this.setting.long);
+    }
+
+    if (this.state === 'idle' || this.state === 'short') {
+      this.sessCount++;
+      this.state = 'focus';
+      return minToSec(this.setting.focus);
+    }
+
+    if (this.state === 'focus') {
+      this.state = 'short';
+      return minToSec(this.setting.short);
+    }
+  }
+
+  reset() {
+    clearInterval(this.timerID);
+    this.time = null;
+    this.startingTime = null;
+    this.paused = null;
+    this.sessCount = 0;
+    this.state = 'idle';
+    this.isRunning = false;
   }
 }

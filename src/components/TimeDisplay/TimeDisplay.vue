@@ -1,42 +1,28 @@
 <script setup>
-  import { defineProps } from 'vue';
+  import { defineProps, toRefs } from 'vue';
+  import PointerAnimation from '../PointerAnimation/PointerAnimation.vue';
 
   const props = defineProps({
-    timer: String,
+    time: String,
     currentSession: Number,
     numberOfSessions: Number,
     running: Boolean,
   });
+
+  const { time, currentSession, numberOfSessions, running } = toRefs(props);
 </script>
 
 <template>
-  <div class="wrapper-timer">
-    <div class="container-timer">
-      <div>
-        <span class="time-holder">{{ props.timer }}</span>
-      </div>
-      <div>
-        <span class="session-holder"
-          >{{ props.currentSession }} / {{ props.numberOfSessions }}</span
-        >
-      </div>
+  <div class="wrapper-timer text-white">
+    <div class="cont-timer">
+      <p class="font-bold text-3xl tracking-wider">
+        {{ time }}
+      </p>
+      <p class="font-semibold">
+        {{ currentSession }} / {{ numberOfSessions }}
+      </p>
     </div>
-    <div class="container-animation" :class="{ animate: props.running }">
-      <div class="top">
-        <div class="pointer"></div>
-      </div>
-      <div class="center">
-        <div class="left">
-          <div class="pointer"></div>
-        </div>
-        <div class="right">
-          <div class="pointer"></div>
-        </div>
-      </div>
-      <div class="bottom">
-        <div class="pointer"></div>
-      </div>
-    </div>
+    <PointerAnimation :running="running" />
   </div>
 </template>
 
@@ -44,10 +30,9 @@
   .wrapper-timer {
     width: 240px;
     height: 240px;
-    color: #edf5e1;
   }
 
-  .container-timer {
+  .cont-timer {
     position: absolute;
     width: 240px;
     height: 240px;
@@ -56,94 +41,5 @@
     justify-content: center;
     flex-direction: column;
     border-radius: 50%;
-  }
-
-  .container-timer > div {
-    margin: 0.15rem auto;
-  }
-
-  .time-holder {
-    font-size: 1.85rem;
-    font-weight: bold;
-  }
-
-  .container-animation {
-    width: 240px;
-    height: 240px;
-    position: absolute;
-    z-index: 10;
-    border-radius: 50%;
-    transform: rotate(45deg);
-    overflow: hidden;
-    padding: 1rem;
-  }
-  .container-animation.animate {
-    -webkit-animation: rotate 0.5s linear forwards;
-    animation: rotate 0.5s linear forwards;
-  }
-
-  @keyframes rotate {
-    0% {
-      transform: rotate(45deg);
-    }
-    99% {
-      transform: rotate(405deg);
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  .container-animation > div {
-    height: 33.33%;
-  }
-  .center {
-    display: flex;
-  }
-  .center > div {
-    width: 50%;
-    height: 100%;
-  }
-
-  .pointer {
-    background: rgb(229, 229, 229);
-    border-radius: 10px;
-  }
-  .top > .pointer,
-  .bottom > .pointer {
-    height: 12.5px;
-    width: 6px;
-  }
-  .left > .pointer,
-  .right > .pointer {
-    width: 12.5px;
-    height: 6px;
-  }
-
-  .top,
-  .left,
-  .right,
-  .bottom {
-    display: flex;
-  }
-  .left,
-  .right {
-    align-items: center;
-  }
-  .top,
-  .bottom {
-    justify-content: center;
-  }
-  .left {
-    justify-content: flex-start;
-  }
-  .right {
-    justify-content: flex-end;
-  }
-  .top {
-    align-items: flex-start;
-  }
-  .bottom {
-    align-items: flex-end;
   }
 </style>

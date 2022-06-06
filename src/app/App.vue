@@ -1,17 +1,17 @@
 <script setup>
-import Timer from '../components/Timer/Timer.vue'
-import Header from '../components/Header/Header.vue';
-import Footer from '../components/Footer/Footer.vue';
+import Header from '@/components/Header/Header.vue';
+import Footer from '@/components/Footer/Footer.vue';
+import Pomodoro from '@/components/pomodoro/pomodoro.vue';
 </script>
 
 <template>
     <Header />
-    <Timer />
+    <Pomodoro />
     <Footer />
 </template>
 
 <style>
-@import '@/assets/base.css';
+@import '@/assets/style/base.css';
 
 #app {
     margin: auto;

@@ -1,11 +1,13 @@
 <script setup>
   import { ref } from 'vue';
   import { storeToRefs } from 'pinia';
-  import { useStore } from '../../app/store';
+  import { useStore } from '@/app/store';
+
+  import settingIcon from '@/assets/icons/glyph-settings-90.png';
+  import closeIcon from '@/assets/icons/glyph-cancel-90.png';
 
   const store = useStore();
-  const { workSession, shortBreak, longBreak, sessionAmount } =
-    storeToRefs(store);
+  const { focus, short, long, sessions } = storeToRefs(store);
 
   const showSetting = ref(false);
 </script>
@@ -14,8 +16,9 @@
   <div class="flex items-center justify-center">
     <button @click="showSetting = !showSetting">
       <img
-        class="h-6"
-        src="https://img.icons8.com/ios-glyphs/90/ffffff/settings--v1.png"
+        :src="settingIcon"
+        alt="setting icon"
+        class="h-6 pointer-events-none"
       />
     </button>
 
@@ -27,20 +30,19 @@
       <form class="relative rounded shadow-lg form bg-slate-900 bottom-10">
         <button @click="showSetting = !showSetting">
           <img
-            class="h-7"
-            src="https://img.icons8.com/ios-glyphs/90/ffffff/macos-close.png"
+            :src="closeIcon"
+            alt="close icon"
+            class="h-6 pointer-events-none"
           />
         </button>
         <h2 class="mb-8 font-semibold text-center text-white">App Settings</h2>
         <section>
           <label for="session-number" class="flex flex-col items-center">
             <span class="text-base label-title">Number of Sessions</span>
-            <span class="text-sm text-center input-value">{{
-              sessionAmount
-            }}</span>
+            <span class="text-sm text-center input-value">{{ sessions }}</span>
           </label>
           <input
-            v-model="sessionAmount"
+            v-model.number="sessions"
             type="range"
             id="session-number"
             min="1"
@@ -53,11 +55,11 @@
           <label for="work-session" class="flex flex-col items-center">
             <span class="text-base label-title">Focus Session</span>
             <span class="text-sm text-center input-value"
-              >{{ workSession }} minutes</span
+              >{{ focus }} minutes</span
             >
           </label>
           <input
-            v-model="workSession"
+            v-model.number="focus"
             type="range"
             min="5"
             max="120"
@@ -70,11 +72,11 @@
           <label for="short-break" class="flex flex-col items-center">
             <span class="text-base label-title">Short Break</span>
             <span class="text-sm text-center input-value"
-              >{{ shortBreak }} minutes</span
+              >{{ short }} minutes</span
             >
           </label>
           <input
-            v-model="shortBreak"
+            v-model.number="short"
             type="range"
             min="5"
             max="30"
@@ -87,11 +89,11 @@
           <label for="long-break" class="flex flex-col items-center">
             <span class="text-base label-title">Long Break</span>
             <span class="text-sm text-center input-value"
-              >{{ longBreak }} minutes</span
+              >{{ long }} minutes</span
             >
           </label>
           <input
-            v-model="longBreak"
+            v-model.number="long"
             type="range"
             min="15"
             max="120"
