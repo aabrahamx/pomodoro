@@ -15,7 +15,7 @@ export default class Pomodoro {
   start() {
     this.isRunning = true;
     this.time = this.sessRunner();
-    this.startingTime = this.time;
+    this.startingTime ? null : (this.startingTime = this.time);
     this.timerID = setInterval(() => {
       this.time > 0 ? this.time-- : this.handleTimerFinish();
     }, 1000);
@@ -36,6 +36,7 @@ export default class Pomodoro {
     if (allSessDone && longBreakDone) {
       this.reset();
     } else {
+      this.startingTime = null;
       this.start();
     }
   }
