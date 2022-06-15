@@ -1,4 +1,3 @@
-import Stack from './stack';
 import { minToSec } from '@/helpers/formatters.js';
 
 /**
