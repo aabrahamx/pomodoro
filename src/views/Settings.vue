@@ -1,27 +1,21 @@
 <script setup>
-  import { ref } from 'vue';
   import { storeToRefs } from 'pinia';
   import { useStore } from '@/app/store';
-  import BtnIcon from '../BtnIcon/BtnIcon.vue';
+
+  import RouterIcon from '@/components/RouterIcon/RouterIcon.vue';
 
   const store = useStore();
   const { focus, short, long, sessions } = storeToRefs(store);
-
-  const displayForm = ref(false);
 </script>
 
 <template>
-  <div class="flex items-center justify-center">
-    <BtnIcon type="setting" size="sm" @click="displayForm = !displayForm" />
-
+  <div class="">
     <div
-      v-if="displayForm"
-      @click.self="displayForm = !displayForm"
-      class="fixed top-0 left-0 z-20 flex items-center justify-center w-screen h-screen backdrop-blur bg-black/50"
+      class="w-full border border-black mt-4 rounded-3xl"
     >
-      <form class="relative rounded shadow-lg form bg-slate-900 bottom-10">
-        <BtnIcon type="close" size="sm" @click="displayForm = !displayForm" />
-        <h2 class="mb-8 font-semibold text-center text-white">App Settings</h2>
+      <form class="form">
+        <RouterIcon to="/" type="close" size="sm" />
+        <h2 class="mb-8 text-2xl font-semibold text-center text-white">App Settings</h2>
         <section>
           <label for="session-number" class="flex flex-col items-center">
             <span class="text-base label-title">Number of Sessions</span>
@@ -95,8 +89,7 @@
 
 <style scoped>
   .form {
-    width: 95%;
-    max-width: 25rem;
+    width: 100%;
     padding: 2rem;
     color: white;
   }

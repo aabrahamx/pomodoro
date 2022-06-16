@@ -1,13 +1,11 @@
 <script setup>
-  import Setting from '../Setting/Setting.vue';
   import Logo from '../Logo/Logo.vue';
+  import RouterIcon from '../RouterIcon/RouterIcon.vue';
 </script>
 
 <template>
-  <header
-    class="flex items-center justify-between py-4 text-2xl font-semibold border-b text-emerald-500 border-black/50"
-  >
+  <header class="flex items-center justify-between py-4 border-b border-black">
     <Logo />
-    <Setting />
+    <RouterIcon to="/settings" type="setting" size="sm" />
   </header>
 </template>
