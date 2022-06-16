@@ -1,4 +1,6 @@
 <script setup>
+import { RouterView } from 'vue-router';
+
 import Header from '@/components/Header/Header.vue';
 import Footer from '@/components/Footer/Footer.vue';
 import Pomodoro from '@/components/Pomodoro/Pomodoro.vue';
@@ -6,7 +8,7 @@ import Pomodoro from '@/components/Pomodoro/Pomodoro.vue';
 
 <template>
     <Header />
-    <Pomodoro />
+    <RouterView />
     <Footer />
 </template>
 
