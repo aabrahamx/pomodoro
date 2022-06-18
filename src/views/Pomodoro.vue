@@ -15,30 +15,29 @@
 
   const userSettings = reactive({ focus, short, long, sessions });
   const pomodoro = reactive(new Pomodoro(userSettings));
-  const { time, startingTime, sessCount, isRunning, state } = toRefs(pomodoro);
-
-  const start = () => pomodoro.start();
-  const pause = () => pomodoro.stop();
-  const reset = () => pomodoro.reset();
+  const { runningTime, startingTime, sessionProgress, isRunning, state } =
+    toRefs(pomodoro);
 </script>
 
 <template>
   <main>
     <Display
-      :time="formatTime(time)"
+      :time="formatTime(runningTime)"
       :number-of-sessions="sessions"
-      :current-session="sessCount"
-      :percentage-left="(time / startingTime) * 100"
+      :current-session="sessionProgress"
+      :percentage-left="(runningTime / startingTime) * 100"
       :running="isRunning"
     />
 
     <Session :current-session="state" />
 
     <Controls
-      @start="start"
-      @pause="pause"
-      @reset="reset"
+      @start="pomodoro.handleStartClick()"
+      @pause="pomodoro.handlePauseClick()"
+      @reset="pomodoro.handleResetClick()"
+      @skip="pomodoro.handleSkipClick()"
       :running="isRunning"
+      :current-session="state"
     />
   </main>
 </template>

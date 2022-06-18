@@ -1,77 +1,122 @@
 import { minToSec } from '@/helpers/formatters.js';
 
+/**
+ * Focus - the amount of time user allocated for productivty.
+ * Short - the amount of time user allocated for shot breaks.
+ * Long - the amount of time user allocated for long breaks.
+ * Sessions - the amount of focus sessions a user wants to do.
+ * this.setting - is an object with all the mentioned properties in it.
+ */
+
 export default class Pomodoro {
-  constructor(settings) {
-    this.setting = settings;
+  constructor(setting) {
+    this.setting = setting;
     this.timerID = null;
-    this.time = null;
-    this.startingTime = null;
-    this.paused = null;
-    this.sessCount = 0;
-    this.state = 'idle';
+    this.sessions = [];
+    this.initialized = false;
+
     this.isRunning = false;
+    this.startingTime = null;
+    this.runningTime = null;
+    this.sessionProgress = 0;
+
+    this.pausedTime = null;
+    this.state = 'idle';
   }
 
-  start() {
+  // user click handlers ⤵
+  handleStartClick() {
+    if (!this.initialized) this.initialize();
+    this.runPomodoro();
+  }
+
+  handlePauseClick() {
+    this.stop();
+    this.isRunning = false;
+    if (this.runningTime > 0) {
+      this.pausedTime = this.runningTime;
+    }
+  }
+
+  handleSkipClick() {
+    this.stop();
+    this.runPomodoro();
+  }
+
+  handleResetClick() {
+    this.stop();
+    this.reset();
+  }
+
+  // internal methods ⤵
+  runPomodoro() {
+    if (this.pausedTime > 0) {
+      this.runningTime = this.pausedTime;
+    }
+
+    if (this.pausedTime > 0 !== true) {
+      const current = this.sessions.pop();
+      const { sessionTime, sessionType, sessionProgress } = current;
+      this.state = sessionType;
+      this.sessionProgress = sessionProgress;
+      this.startingTime = sessionTime;
+      this.runningTime = sessionTime;
+    }
+
     this.isRunning = true;
-    this.time = this.sessRunner();
-    this.startingTime ? null : (this.startingTime = this.time);
     this.timerID = setInterval(() => {
-      this.time > 0 ? this.time-- : this.handleTimerFinish();
+      this.runningTime > 0 ? this.runningTime-- : this.handleTimerIdDone();
     }, 1000);
   }
 
-  stop() {
-    this.isRunning = false;
-    clearInterval(this.timerID);
-    if (this.time > 0) {
-      this.paused = this.time;
-    }
-  }
-
-  handleTimerFinish() {
+  runningTimeDone() {
     this.stop();
-    const allSessDone = this.sessCount === this.setting.sessions;
-    const longBreakDone = this.state === 'long';
-    if (allSessDone && longBreakDone) {
-      this.reset();
-    } else {
+    if (this.sessions.peek()) {
       this.startingTime = null;
-      this.start();
+      this.runPomodoro();
+    } else {
+      this.reset();
     }
   }
 
-  sessRunner() {
-    if (this.paused) {
-      const paused = this.paused;
-      this.paused = null;
-      return paused;
-    }
-
-    if (this.sessCount === this.setting.sessions) {
-      this.state = 'long';
-      return minToSec(this.setting.long);
-    }
-
-    if (this.state === 'idle' || this.state === 'short') {
-      this.sessCount++;
-      this.state = 'focus';
-      return minToSec(this.setting.focus);
-    }
-
-    if (this.state === 'focus') {
-      this.state = 'short';
-      return minToSec(this.setting.short);
-    }
+  stop() {
+    clearInterval(this.timerID);
   }
 
   reset() {
-    clearInterval(this.timerID);
-    this.time = null;
-    this.startingTime = null;
-    this.paused = null;
-    this.sessCount = 0;
-    this.state = 'idle';
+    this.sessions = [];
+    this.initialized = false;
     this.isRunning = false;
+    this.runningTime = null;
+    this.startingTime = null;
+    this.pausedTime = null;
+    this.sessionProgress = 0;
+    this.state = 'idle';
+  }
+
+  initialize() {
+    this.initialized = true;
+    const { focus, short, long, sessions } = this.setting;
+    const allSess = sessions * 2; // to account for breaks
+
+    for (let i = allSess; i > 0; i--) {
+      if (i === allSess) {
+        this.sessions.push(getData('long', i, long));
+      } else {
+        if (i % 2 === 0) {
+          this.sessions.push(getData('short', i, short));
+        } else {
+          this.sessions.push(getData('focus', i, focus));
+        }
+      }
+    }
+
+    function getData(type, i, time) {
+      return {
+        sessionType: type,
+        sessionProgress: Math.ceil(i / 2),
+        sessionTime: minToSec(time),
+      };
+    }
   }
 }
