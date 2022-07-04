@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Pomodoro from '@/views/Pomodoro.vue'
-import settings from '@/views/settings.vue'
+import Settings from '@/views/Settings.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/settings',
       name: 'settings',
-      component: settings,
+      component: Settings,
     },
   ],
   linkActiveClass: 'active',
