@@ -1,6 +1,5 @@
 <script setup>
   import { defineProps, toRefs } from 'vue';
-  import PointerAnimation from '../PointerAnimation/PointerAnimation.vue';
 
   const props = defineProps({
     time: String,
@@ -22,7 +21,6 @@
         {{ currentSession }} / {{ numberOfSessions }}
       </p>
     </div>
-    <PointerAnimation :running="running" />
   </div>
 </template>
 
